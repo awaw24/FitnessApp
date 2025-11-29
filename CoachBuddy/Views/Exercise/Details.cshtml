@@ -1,0 +1,43 @@
+﻿@model CoachBuddy.Application.Exercise.ExerciseDto
+
+@{
+    ViewData["Title"] = "Exercise Details";
+}
+
+<h1>@Model.Name - Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MuscleGroup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MuscleGroup)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model.IsEditable)
+    {
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
+    }
+    <a class="btn btn-outline-secondary btn-sm" asp-action="Index">Back to List</a>
+</div>
+<hr />
+
+@section Scripts {
+    <script src="~/js/Exercise/Details.js"></script>
+}

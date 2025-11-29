@@ -1,0 +1,110 @@
+﻿@model CoachBuddy.Application.Group.GroupDetailsDto
+
+@{
+    ViewData["Title"] = $"{Model.Name} - Details";
+}
+
+<h1>@Model.Name - Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Description
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            Created At
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class="col-sm-2">
+            User Count
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ClientGroups.Count
+        </dd>
+    </dl>
+</div>
+
+<div>
+    @if (Model.IsEditable)
+    {
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Group" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
+    }
+    <a class="btn btn-outline-secondary btn-sm" asp-action="Index">Back to List</a>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model.IsEditable)
+{
+    <form asp-action="AddClientToGroup" method="post" id="add-client-form" class="mt-4">
+        <h4>Add Client to Group</h4>
+        <div class="form-group">
+            <label for="ClientId">Select Client:</label>
+            <select name="clientId" class="form-control" id="ClientId">
+                <option value="">Select Client</option>
+                @foreach (var client in Model.AvailableClients)
+                {
+                    <option value="@client.Id">@client.FullName</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="groupId" value="@Model.Id" />
+        <button type="submit" class="btn btn-success btn-sm">Add Client</button>
+    </form>
+}
+
+@if (Model.ClientGroups.Any())
+{
+    <h4 class="mt-4">Clients in Group</h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Client Name</th>
+                <th>Assigned At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var clientGroup in Model.ClientGroups)
+            {
+                <tr>
+                    <td>@clientGroup.FullName</td>
+                    <td>@clientGroup.AssignedAt.ToString("dd MMM yyyy, HH:mm")</td>
+                    <td>
+                        <form asp-action="RemoveClientFromGroup" method="post" class="d-inline">
+                            <input type="hidden" name="ClientId" value="@clientGroup.ClientId" />
+                            <input type="hidden" name="GroupId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No clients in this group yet.</p>
+}

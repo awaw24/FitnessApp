@@ -1,0 +1,86 @@
+﻿@using CoachBuddy.Application.Common
+@model PaginatedResult<CoachBuddy.Application.Exercise.ExerciseDto>
+
+@{
+    ViewData["Title"] = "Exercises";
+}
+
+<h1>Exercises</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">
+        <i class="bi bi-person-add"></i> Add new exercise
+    </a>
+</p>
+
+<form asp-action="Search" method="get">
+    <input type="text" name="searchTerm" placeholder="Search clients..." class="form-control" />
+    <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+</form>
+
+@if (Model.Items.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Muscle Group</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exercise in Model.Items)
+            {
+                <tr>
+                    <td>@exercise.Name</td>
+                    <td>@exercise.MuscleGroup</td>
+                    <td>@exercise.Description</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-encodedName="@exercise.EncodedName">
+                            <i class="bi bi-info-circle"></i> Details
+                        </a>
+                        @if (exercise.IsEditable)
+                        {
+                            <a class="btn btn-outline-secondary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-encodedName="@exercise.EncodedName">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a class="btn btn-outline-danger btn-sm" asp-controller="Exercise" asp-action="Delete" asp-route-encodedName="@exercise.EncodedName">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No exercises found.</p>
+}
+
+<nav aria-labael="Page navigation">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-pageSize="@Model.PageSize">Previous</a>
+            </li>
+
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Index" asp-route-pageNumber="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+            </li>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="btn btn-outline-secondary btn-sm" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
