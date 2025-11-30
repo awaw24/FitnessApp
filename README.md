@@ -34,3 +34,13 @@
 ## 🎯 Who is CoachBuddy for?
 - **Personal Trainers**: Manage multiple clients in one convenient platform.
 - **Fitness Enthusiasts**: Organize workouts and nutrition plans with ease.
+
+---
+## Screenshots
+<img width="1900" height="900" alt="CoachBuddy_Screenshoot_1" src="https://github.com/user-attachments/assets/39e97da4-cc8b-421e-89a2-7d0e5afefc83" />
+<img width="1900" height="900" alt="CoachBuddy_Screenshoot_2" src="https://github.com/user-attachments/assets/d73bdec8-9d6b-4100-9245-01f542655d90" />
+<img width="1900" height="900" alt="CoachBuddy_Screenshoot_3" src="https://github.com/user-attachments/assets/f90a5794-3f78-42dc-8ead-ac5f7b8c8b09" />
+<img width="1900" height="900" alt="CoachBuddy_Screenshoot_4" src="https://github.com/user-attachments/assets/c2fea94e-f48e-45f9-8e22-e8d8210c8cd5" />
+<img width="1900" height="904" alt="CoachBuddy_Screenshoot_5" src="https://github.com/user-attachments/assets/9921a3a2-eadb-4ea9-8479-43b1bea9bc0d" />
+<img width="1900" height="906" alt="CoachBuddy_Screenshoot_6" src="https://github.com/user-attachments/assets/6e24ddc2-7f34-4fb6-ac33-210015f4ff91" />
+
